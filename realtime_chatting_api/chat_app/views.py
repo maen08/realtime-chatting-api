@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.contrib.auth import User
 from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.auth.model import Token
 
 
 def register(request):
@@ -26,3 +27,10 @@ def register(request):
     }
 
     return JsonResponse(response, status=status.HTTP_201_CREATED)
+
+
+
+
+def login(request):
+
+    return JsonResponse(response, status=status.HTTP_200_OK)
