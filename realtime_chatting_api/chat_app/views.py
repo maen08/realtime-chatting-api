@@ -7,6 +7,9 @@ from rest_framework.auth.model import Token
 from rest_framework.auth import login, authenticate
 
 
+
+
+
 def register(request):
     email = request.data.get('email')
     username = request.data.get('username')
@@ -32,6 +35,9 @@ def register(request):
 
 
 
+
+
+
 def login(request):
     username = request.data.get('username')
     password = request.data.get('password')
@@ -41,7 +47,17 @@ def login(request):
     if not user.check_password(password):
         raise AuthenticationFailed('Wrong password!')
     
-    authenticate()
+    auth_user = authenticate(username=username, password=password)
+    if not auth_user in User.objects.all():
+        raise AuthenticationFailed('User does not exist!')
+    
+    else:
+        login(request, auth_user)
+        token = str(Token.objects.create(user=auth_user))
+
+        response = {
+
+        }
 
 
     return JsonResponse(response, status=status.HTTP_200_OK)
