@@ -27,7 +27,7 @@ def register(request):
     response = {
         'username': username,
         'status': status.HTTP_201_CREATED,
-        'data': 'Login to obtain API token'
+        'data': 'Login to obtain API token',
     }
 
     return JsonResponse(response, status=status.HTTP_201_CREATED)
@@ -56,7 +56,9 @@ def login(request):
         token = str(Token.objects.create(user=auth_user))
 
         response = {
-
+            'data': 'Successful login',
+            'token': token,
+            'status': status.HTTP_200_OK,
         }
 
 
