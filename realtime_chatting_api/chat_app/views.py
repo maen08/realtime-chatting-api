@@ -4,6 +4,7 @@ from django.contrib.auth import User
 from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.auth.model import Token
+from rest_framework.auth import login, authenticate
 
 
 def register(request):
@@ -32,5 +33,15 @@ def register(request):
 
 
 def login(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    user = User.objects.filter(username=username)
+
+    if not user.check_password(password):
+        raise AuthenticationFailed('Wrong password!')
+    
+    authenticate()
+
 
     return JsonResponse(response, status=status.HTTP_200_OK)
