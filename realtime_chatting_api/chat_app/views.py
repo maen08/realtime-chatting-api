@@ -19,11 +19,10 @@ def register(request):
         password=password
     )
 
-
     response = {
         'username': username,
-        'status': status.HTTP_,
+        'status': status.HTTP_201_CREATED,
         'data': 'Login to obtain API token'
     }
 
-    return JsonResponse()
+    return JsonResponse(response, status=status.HTTP_201_CREATED)
