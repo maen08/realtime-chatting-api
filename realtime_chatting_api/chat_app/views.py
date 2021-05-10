@@ -36,9 +36,8 @@ def register(request):
 
 
 
-
-
 def login(request):
+    
     username = request.data.get('username')
     password = request.data.get('password')
 
@@ -61,5 +60,12 @@ def login(request):
             'status': status.HTTP_200_OK,
         }
 
+        return JsonResponse(response, status=status.HTTP_200_OK)
 
-    return JsonResponse(response, status=status.HTTP_200_OK)
+
+    response = {
+        'data': 'User does not exists. Please register',
+        'status': status.HTTP_403_FORBIDDEN,
+    }
+
+    return JsonResponse(response, status=status.HTTP_403_FORBIDDEN)
